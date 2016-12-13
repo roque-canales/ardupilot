@@ -9,7 +9,8 @@
    (at your option) any later version.
 
    This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
+
+but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
 
@@ -18,6 +19,7 @@
  */
 
 #include "Tracker.h"
+
 #include "version.h"
 
 #define SCHED_TASK(func, _interval_ticks, _max_time_micros) SCHED_TASK_CLASS(Tracker, &tracker, func, _interval_ticks, _max_time_micros)
@@ -69,6 +71,7 @@ void Tracker::setup()
 
     // initialise the main loop scheduler
     scheduler.init(&scheduler_tasks[0], ARRAY_SIZE(scheduler_tasks));
+    hal.uartE->begin(57600); // rtsts--------------------------------------------------------------------------------------------------------------------
 }
 
 /**
@@ -112,6 +115,7 @@ void Tracker::one_second_loop()
         }
         one_second_counter = 0;
     }
+    hal.uartE->printf("Hello on UART ");// rtsts--------------------------------------------------------------------------------------------------------------------
 }
 
 void Tracker::ten_hz_logging_loop()
